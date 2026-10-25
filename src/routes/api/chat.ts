@@ -22,7 +22,8 @@ export const Route = createFileRoute("/api/chat")({
           headers: { "Lovable-API-Key": apiKey, "X-Lovable-AIG-SDK": "vercel-ai-sdk" },
         });
         const result = streamText({
-          model: provider.responses("openai/gpt-6-astra"),
+          // Cast guards against duplicate provider type copies across ai-sdk packages.
+          model: provider.responses("openai/gpt-6-astra") as unknown as Parameters<typeof streamText>[0]["model"],
           instructions: SYSTEM,
           messages: await convertToModelMessages(messages),
           abortSignal: request.signal,
