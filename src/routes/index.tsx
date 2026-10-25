@@ -175,7 +175,9 @@ function Chat({ messages, status, error, onSend, onBack, onRetry }: {
 }) {
   const [input, setInput] = useState("");
   const end = useRef<HTMLDivElement>(null);
-  useEffect(() => end.current?.scrollIntoView({ behavior: "smooth" }), [messages]);
+  useEffect(() => {
+    end.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
   const busy = status === "submitted" || status === "streaming";
   return (
     <div className="h-full flex flex-col pt-10">
