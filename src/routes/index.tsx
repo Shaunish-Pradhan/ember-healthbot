@@ -38,7 +38,7 @@ function Index() {
   });
 
   useEffect(() => {
-    const t = setTimeout(() => setNote(CHECKINS[0]), 1500);
+    const t = setTimeout(() => setNote(CHECKINS[0] ?? null), 1500);
     return () => clearTimeout(t);
   }, []);
 
@@ -46,7 +46,7 @@ function Index() {
     const n = (idx + 1) % CHECKINS.length;
     setIdx(n);
     setNote(null);
-    setTimeout(() => setNote(CHECKINS[n]), 400);
+    setTimeout(() => setNote(CHECKINS[n] ?? null), 400);
   };
 
   const answer = (c: CheckIn, a: string) => {
@@ -134,7 +134,7 @@ function Home({ log, onTalk }: { log: { q: string; a: string }[]; onTalk: () => 
 
 function Chat({ messages, status, error, onSend, onBack }: {
   messages: ReturnType<typeof useChat>["messages"];
-  status: string; error?: Error; onSend: (t: string) => void; onBack: () => void;
+  status: string; error?: Error | undefined; onSend: (t: string) => void; onBack: () => void;
 }) {
   const [input, setInput] = useState("");
   const end = useRef<HTMLDivElement>(null);
